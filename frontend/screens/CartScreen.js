@@ -4,32 +4,35 @@ import { themeColors } from "../theme";
 import * as Icon from "react-native-feather";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { selectItem } from "../slices/categorySlice";
+import { selectCategory } from "../slices/categorySlice";
 import {
   removeFromCart,
   selectCartItems,
   selectCartTotal,
 } from "../slices/cartSlice";
+import { urlFor } from "../sanity";
 
 export default function CartScreen() {
-  const item = useSelector(selectItem);
+  const category = useSelector(selectCategory);
   const navigation = useNavigation();
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
-  const [groupedItems, setGroupedItems] = useState({});
   const dispatch = useDispatch();
   const GST = cartTotal * 0.05;
+  const [groupedItems, setGroupedItems] = useState({});
+
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
-      if (group[item.id]) {
-        group[item.id].push(item);
+      if (group[item._id]) {
+        group[item._id].push(item);
       } else {
-        group[item.id] = [item];
+        group[item._id] = [item];
       }
       return group;
     }, {});
     setGroupedItems(items);
   }, [cartItems]);
+
   return (
     <View className="bg-white flex-1">
       {/* back button */}
@@ -43,7 +46,6 @@ export default function CartScreen() {
         </TouchableOpacity>
         <View>
           <Text className="text-center font-bold text-xl">Your cart</Text>
-          <Text className="text-center text-gray-500">{item.title}</Text>
         </View>
       </View>
       {/* dishes */}
@@ -64,13 +66,16 @@ export default function CartScreen() {
               <Text className="font-bold" style={{ color: themeColors.text }}>
                 {items.length} x
               </Text>
-              <Image className="h-14 w-14 rounded-full" source={dish.image} />
+              <Image
+                className="h-14 w-14 rounded-full"
+                source={{ uri: urlFor(dish.image).url() }}
+              />
               <Text className="flex-1 font-bold text-gray-700">
-                {dish.title}
+                {dish.name}
               </Text>
               <Text className="font-semibold text-base">$ {dish.price}</Text>
               <TouchableOpacity
-                onPress={() => dispatch(removeFromCart({ id: dish.id }))}
+                onPress={() => dispatch(removeFromCart({ id: dish._id }))}
                 className="p-1 rounded-full"
                 style={{ backgroundColor: themeColors.bgColor(1) }}
               >

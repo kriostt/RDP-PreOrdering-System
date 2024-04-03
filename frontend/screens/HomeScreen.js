@@ -6,14 +6,14 @@ import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
 import Categories from "../components/categories";
 import FeaturedRow from "../components/featuredRow";
-import { getCategoriesWithItem } from "../api";
+import { getFeaturedCategories } from "../api";
 
 export default function HomeScreen() {
-  const [categoriesWithItem, setCategoriesWithItem] = useState([]);
+  const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useEffect(() => {
-    getCategoriesWithItem().then((data) => {
-      setCategoriesWithItem(data);
+    getFeaturedCategories().then((data) => {
+      setFeaturedCategories(data);
     });
   }, []);
 
@@ -55,13 +55,12 @@ export default function HomeScreen() {
 
         {/* featured */}
         <View className="mt-5">
-          {categoriesWithItem.map((item, index) => {
+          {featuredCategories.map((item, index) => {
             return (
               <FeaturedRow
                 key={index}
                 name={item.name}
-                dish={item.dish}
-                description={item.description}
+                categories={item.categories}
               />
             );
           })}

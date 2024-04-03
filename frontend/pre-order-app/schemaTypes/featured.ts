@@ -14,7 +14,7 @@ export default defineType({
     {
       name: 'description',
       type: 'string',
-      title: 'Featured Item description',
+      title: 'Featured Category description',
     },
     {
       name: 'categories',

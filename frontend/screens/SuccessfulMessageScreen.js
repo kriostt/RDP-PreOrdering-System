@@ -12,7 +12,7 @@ export default function SuccessfulMessageScreen() {
 
   const clearCart = () => {
     navigation.navigate("Home");
-    dispatch(emptyCart);
+    dispatch(emptyCart());
   };
 
   return (

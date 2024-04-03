@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import * as Icon from "react-native-feather";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { themeColors } from "../theme";
@@ -7,8 +7,8 @@ import DishRow from "../components/dishRow";
 import CartIcon from "../components/cartIcon";
 import { StatusBar } from "expo-status-bar";
 import { useDispatch } from "react-redux";
-import { setCategory } from "../slices/categorySlice";
 import { urlFor } from "../sanity";
+import { setCategory } from "../slices/categorySlice";
 
 export default function ItemScreen() {
   const { params } = useRoute();
@@ -17,7 +17,7 @@ export default function ItemScreen() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (item && item.id) {
+    if (item && item._id) {
       dispatch(setCategory({ ...item }));
     }
   }, []);
@@ -45,6 +45,7 @@ export default function ItemScreen() {
         >
           <View className="px-5">
             <Text className="text-3xl font-bold">{item.name}</Text>
+            <Text className="text-gray-500 text-xs">{item.description}</Text>
             {/* {/* description */}
             <Text className="text-gray-500 mt-2"></Text>
           </View>
@@ -52,9 +53,9 @@ export default function ItemScreen() {
         <View className="pb-36 bg-white">
           <Text className="px-4 py-4 text-2xl font-bold">Menu</Text>
           {/* dishes */}
-          {/* {dish.map((dish, index) => (
+          {item.dishes.map((dish, index) => (
             <DishRow item={{ ...dish }} key={index} />
-          ))} */}
+          ))}
         </View>
       </ScrollView>
     </View>

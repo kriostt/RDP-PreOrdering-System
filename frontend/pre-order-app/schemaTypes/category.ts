@@ -23,7 +23,7 @@ export default defineType({
       title: 'Category image',
     },
     {
-      name: 'dish',
+      name: 'dishes',
       type: 'array',
       title: 'Dishes',
       of: [{type: 'reference', to: [{type: 'dish'}]}],
