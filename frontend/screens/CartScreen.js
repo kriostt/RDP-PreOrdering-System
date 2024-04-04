@@ -1,4 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  Alert,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { themeColors } from "../theme";
 import * as Icon from "react-native-feather";
@@ -32,6 +39,18 @@ export default function CartScreen() {
     }, {});
     setGroupedItems(items);
   }, [cartItems]);
+
+  const handlePlaceOrder = () => {
+    if (cartItems.length === 0) {
+      // If cart is empty, show a notification
+      Alert.alert(
+        "Empty Cart",
+        "Please add items to your cart before placing an order."
+      );
+    } else {
+      navigation.navigate("SuccessfulMessage");
+    }
+  };
 
   return (
     <View className="bg-white flex-1">
@@ -111,7 +130,7 @@ export default function CartScreen() {
         </View>
         <View>
           <TouchableOpacity
-            onPress={() => navigation.navigate("SuccessfulMessage")}
+            onPress={handlePlaceOrder}
             style={{ backgroundColor: themeColors.bgColor(1) }}
             className="p-3 rounded-full"
           >

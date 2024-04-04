@@ -1,4 +1,10 @@
-import { View, Text, TextInput, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
@@ -6,16 +12,30 @@ import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
 import Categories from "../components/categories";
 import FeaturedRow from "../components/featuredRow";
-import { getFeaturedCategories } from "../api";
+import { getFeaturedCategories, getFeaturedItems } from "../api";
+import FeaturedItems from "../components/featuredItems";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
   const [featuredCategories, setFeaturedCategories] = useState([]);
+  const [featuredItems, setFeaturedItems] = useState([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     getFeaturedCategories().then((data) => {
       setFeaturedCategories(data);
     });
   }, []);
+
+  useEffect(() => {
+    getFeaturedItems().then((data) => {
+      setFeaturedItems(data);
+    });
+  });
+
+  const viewCart = () => {
+    navigation.navigate("Cart");
+  };
 
   return (
     <SafeAreaView className="bg-white">
@@ -34,12 +54,14 @@ export default function HomeScreen() {
           style={{ backgroundColor: themeColors.bgColor(1) }}
           className="p-3 rounded-full"
         >
-          <Icon.Sliders
-            height="20"
-            width="20"
-            strokeWidth={2.5}
-            stroke="white"
-          />
+          <TouchableOpacity onPress={viewCart}>
+            <Icon.ShoppingCart
+              height="20"
+              width="20"
+              strokeWidth={2.5}
+              stroke="white"
+            />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -61,6 +83,18 @@ export default function HomeScreen() {
                 key={index}
                 name={item.name}
                 categories={item.categories}
+              />
+            );
+          })}
+        </View>
+
+        <View className="mt-5">
+          {featuredItems.map((item, index) => {
+            return (
+              <FeaturedItems
+                key={index}
+                name={item.name}
+                dishes={item.dishes}
               />
             );
           })}

@@ -1,6 +1,13 @@
 import sanityClient from "./sanity";
 
-let sanityQuery = (query, params) => sanityClient.fetch(query, params);
+// let sanityQuery = (query, params) => sanityClient.fetch(query, params);
+
+let sanityQuery = (query, params) => {
+  return sanityClient.fetch(query, params).catch((error) => {
+    console.error("Error fetching data from Sanity:", error);
+    throw error;
+  });
+};
 
 export const getFeaturedCategories = () => {
   return sanityQuery(`
@@ -35,4 +42,14 @@ export const getFeaturedCategoryById = (id) => {
  `,
     { id }
   );
+};
+
+export const getFeaturedItems = () => {
+  return sanityQuery(`  
+  *[_type == "featuredItems"] {
+    ...,
+    dishes[]->{
+      ...
+    }
+  }`);
 };

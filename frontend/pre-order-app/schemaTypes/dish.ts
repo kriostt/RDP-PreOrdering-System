@@ -26,12 +26,5 @@ export default defineType({
       type: 'number',
       title: 'Dish price',
     },
-    {
-      name: 'type',
-      title: 'Category',
-      validation: (rule) => rule.required(),
-      type: 'reference',
-      to: [{type: 'category'}],
-    },
   ],
 })

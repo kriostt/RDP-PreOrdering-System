@@ -12,6 +12,7 @@ import {
 
 export default function DishRow({ item }) {
   const dispatch = useDispatch();
+
   const totalItems = useSelector((state) =>
     selectCartItemsById(state, item._id)
   );
