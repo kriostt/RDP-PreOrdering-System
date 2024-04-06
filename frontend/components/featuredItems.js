@@ -1,3 +1,4 @@
+// import necessary modules
 import { View, Text, ScrollView, Image } from "react-native";
 import React from "react";
 import { themeColors } from "../theme";
@@ -5,12 +6,16 @@ import { urlFor } from "../sanity";
 
 export default function FeaturedItems({ name, dishes }) {
   return (
+    // container for FeaturedItems component on HomeScreen
     <View>
+      {/* View for section header */}
       <View className="flex-row justify-between items-center px-4">
         <View>
           <Text className="font-bold text-lg">{name}</Text>
         </View>
       </View>
+
+      {/* ScrollView for displaying featured dishes */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -22,6 +27,7 @@ export default function FeaturedItems({ name, dishes }) {
         }}
         className="overflow-visible py-5"
       >
+        {/* map over dishes array and render each dish */}
         {dishes.map((dish) => (
           <View
             key={dish._id}
@@ -39,6 +45,7 @@ export default function FeaturedItems({ name, dishes }) {
             }}
             className="rounded-3xl shadow-lg"
           >
+            {/* image component for dish image */}
             <Image
               style={{
                 height: 150,
@@ -48,6 +55,8 @@ export default function FeaturedItems({ name, dishes }) {
               }}
               source={{ uri: urlFor(dish.image).url() }}
             />
+
+            {/* View for dish name */}
             <View style={{ padding: 10 }}>
               <Text style={{ fontSize: 13, fontWeight: "bold" }}>
                 {dish.name}

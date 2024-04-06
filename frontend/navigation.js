@@ -1,22 +1,27 @@
+// import necessary modules
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { View, Text } from "react-native";
 import React from "react";
+// import screens
 import HomeScreen from "./screens/HomeScreen";
 import ItemScreen from "./screens/ItemScreen";
 import CartScreen from "./screens/CartScreen";
 import SuccessfulMessageScreen from "./screens/SuccessfulMessageScreen";
 
+// create a stack navigator
 const Stack = createNativeStackNavigator();
 
+// function for rendering navigation stack
 export default function Navigation() {
   return (
+    // navigation container
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}
       >
+        {/* ---Stack screens--- */}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Item" component={ItemScreen} />
         <Stack.Screen

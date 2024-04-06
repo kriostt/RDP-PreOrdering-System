@@ -1,45 +1,56 @@
+// import necessary modules
 import {
   View,
   Text,
   TextInput,
   ScrollView,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import * as Icon from "react-native-feather";
 import { themeColors } from "../theme";
 import Categories from "../components/categories";
 import FeaturedRow from "../components/featuredRow";
-import { getFeaturedCategories, getFeaturedItems } from "../api";
 import FeaturedItems from "../components/featuredItems";
-import { useNavigation } from "@react-navigation/native";
+import { getFeaturedCategories, getFeaturedItems } from "../api";
 
 export default function HomeScreen() {
+  // state variables
   const [featuredCategories, setFeaturedCategories] = useState([]);
   const [featuredItems, setFeaturedItems] = useState([]);
+
+  // React Navigation hook
   const navigation = useNavigation();
 
+  // effect to fetch featured categories data
   useEffect(() => {
     getFeaturedCategories().then((data) => {
       setFeaturedCategories(data);
     });
   }, []);
 
+  // effect to fetch featured items data
   useEffect(() => {
     getFeaturedItems().then((data) => {
       setFeaturedItems(data);
     });
   });
 
+  // function to navigate to Cart screen
   const viewCart = () => {
     navigation.navigate("Cart");
   };
 
   return (
+    // SafeAreaView to handle notches and screen insets
     <SafeAreaView className="bg-white">
+      {/* StatusBar */}
       <StatusBar barStyle="dark-content" />
+
       {/* search bar */}
       <View className="flex-row items-center space-x-2 px-4 pb-2">
         <View className="flex-row flex-1 items-center p-3 rounded-full border border-gray-300">
@@ -50,6 +61,8 @@ export default function HomeScreen() {
             <Text className="text-gray-600">Red Deer, AB</Text>
           </View>
         </View>
+
+        {/* cart icon */}
         <View
           style={{ backgroundColor: themeColors.bgColor(1) }}
           className="p-3 rounded-full"
@@ -75,7 +88,7 @@ export default function HomeScreen() {
         {/* categories */}
         <Categories />
 
-        {/* featured */}
+        {/* featured row */}
         <View className="mt-5">
           {featuredCategories.map((item, index) => {
             return (
@@ -88,6 +101,7 @@ export default function HomeScreen() {
           })}
         </View>
 
+        {/* featured items */}
         <View className="mt-5">
           {featuredItems.map((item, index) => {
             return (

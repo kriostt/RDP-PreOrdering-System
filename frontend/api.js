@@ -1,14 +1,17 @@
+// import necessary module
 import sanityClient from "./sanity";
 
-// let sanityQuery = (query, params) => sanityClient.fetch(query, params);
-
+// function to execute a query with error handling
 let sanityQuery = (query, params) => {
   return sanityClient.fetch(query, params).catch((error) => {
+    // log error if fetching data fails
     console.error("Error fetching data from Sanity:", error);
+    // throw the error for further handling
     throw error;
   });
 };
 
+// function to fetch featured categories with their dishes
 export const getFeaturedCategories = () => {
   return sanityQuery(`
   *[_type == "featured"] {
@@ -23,10 +26,12 @@ export const getFeaturedCategories = () => {
     `);
 };
 
+// function to fetch all categories
 export const getCategories = () => {
   return sanityQuery(` *[_type == "category"] `);
 };
 
+// function to fetch a featured category by its ID
 export const getFeaturedCategoryById = (id) => {
   return sanityQuery(
     ` 
@@ -44,6 +49,7 @@ export const getFeaturedCategoryById = (id) => {
   );
 };
 
+// function to fetch featured items with their details
 export const getFeaturedItems = () => {
   return sanityQuery(`  
   *[_type == "featuredItems"] {
