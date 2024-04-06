@@ -3,10 +3,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 // import screens
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ItemScreen from "./screens/ItemScreen";
 import CartScreen from "./screens/CartScreen";
 import SuccessfulMessageScreen from "./screens/SuccessfulMessageScreen";
+import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 
 // create a stack navigator
 const Stack = createNativeStackNavigator();
@@ -23,6 +26,8 @@ export default function Navigation() {
       >
         {/* ---Stack screens--- */}
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Item" component={ItemScreen} />
         <Stack.Screen
           name="Cart"
@@ -34,6 +39,7 @@ export default function Navigation() {
           options={{ presentation: "fullScreenModal" }}
           component={SuccessfulMessageScreen}
         />
+        <Stack.Screen name="OrderHistory" component={OrderHistoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

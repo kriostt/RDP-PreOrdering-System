@@ -22,6 +22,7 @@ export default function HomeScreen() {
   // state variables
   const [featuredCategories, setFeaturedCategories] = useState([]);
   const [featuredItems, setFeaturedItems] = useState([]);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   // React Navigation hook
   const navigation = useNavigation();
@@ -43,6 +44,26 @@ export default function HomeScreen() {
   // function to navigate to Cart screen
   const viewCart = () => {
     navigation.navigate("Cart");
+  };
+
+  // toggle the modal
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  // navigate to the login screen
+  const navigateToLogin = () => {
+    navigation.navigate("Login");
+  };
+
+  // navigate to the register screen
+  const navigateToRegister = () => {
+    navigation.navigate("Register");
+  };
+
+  // navigate to the order history screen
+  const navigateToOrderHistory = () => {
+    navigation.navigate("OrderHistory");
   };
 
   return (
@@ -76,7 +97,71 @@ export default function HomeScreen() {
             />
           </TouchableOpacity>
         </View>
+
+        {/* profile icon */}
+        <View
+          style={{ backgroundColor: themeColors.bgColor(1) }}
+          className="p-3 rounded-full"
+        >
+          <TouchableOpacity onPress={toggleProfileMenu}>
+            <Icon.User
+              height="20"
+              width="20"
+              strokeWidth={2.5}
+              stroke="white"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
+
+      {/* profile modal */}
+      <Modal
+        visible={isProfileMenuOpen}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={toggleProfileMenu}
+      >
+        <View style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
+          {/* background overlay */}
+          <TouchableOpacity
+            style={{ flex: 1 }}
+            activeOpacity={1}
+            onPress={toggleProfileMenu}
+          />
+
+          {/* profile menu */}
+          <View
+            style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+          >
+            {/* close button */}
+            <TouchableOpacity onPress={toggleProfileMenu}>
+              <Text
+                style={{
+                  textAlign: "right",
+                  marginBottom: 20,
+                  color: "blue",
+                  fontSize: 24,
+                }}
+              >
+                Close
+              </Text>
+            </TouchableOpacity>
+
+            {/* menu items */}
+            <TouchableOpacity onPress={navigateToLogin}>
+              <Text style={{ marginBottom: 20, fontSize: 22 }}>Login</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={navigateToRegister}>
+              <Text style={{ marginBottom: 20, fontSize: 22 }}>Register</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={navigateToOrderHistory}>
+              <Text style={{ fontSize: 22 }}>Order History</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       {/* main */}
       <ScrollView
