@@ -1,16 +1,25 @@
 // import necessary modules
-import React, { useContext } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import * as Icon from "react-native-feather";
 import CustomButton from "../components/customButton";
 import InputField from "../components/inputField";
-// import { AuthContext } from "../context/AuthContext";
+import useLogin from "../hooks/useLogin";
 
 export default function LoginScreen({ navigation }) {
-  // const {login} = useContext(AuthContext);
+  // destructure values from useLogin hook
+  const { error, loading, loginUser } = useLogin();
 
+  // state variables for form inputs
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // function to handle login
+  const handleLogin = async (values) => {
+    await loginUser(values); // call loginUser function from hook
+  };
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
       <View style={{ paddingHorizontal: 25 }}>
@@ -33,6 +42,8 @@ export default function LoginScreen({ navigation }) {
             <Icon.AtSign size={20} color="#666" style={{ marginRight: 5 }} />
           }
           keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
         />
 
         {/* password input */}
@@ -40,17 +51,12 @@ export default function LoginScreen({ navigation }) {
           label={"Password"}
           icon={<Icon.Lock size={20} color="#666" style={{ marginRight: 5 }} />}
           inputType="password"
-          fieldButtonLabel={"Forgot password?"}
-          fieldButtonFunction={() => {}} // edit to add
+          value={password}
+          onChangeText={setPassword}
         />
 
         {/* login button */}
-        <CustomButton
-          label={"Login"}
-          onPress={() => {
-            login();
-          }}
-        />
+        <CustomButton label={"Login"} onPress={handleLogin} />
 
         {/* register link for new users */}
         <View
