@@ -23,11 +23,5 @@ export default defineType({
       type: 'string',
       validation: (rule) => rule.required(),
     },
-    {
-      name: 'confirmPassword',
-      title: 'Confirm Password',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    },
   ],
 })
