@@ -6,10 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import * as Icon from "react-native-feather";
 import CustomButton from "../components/customButton";
 import InputField from "../components/inputField";
-import { AuthContext } from "../context/AuthContext";
+// import { AuthContext } from "../context/AuthContext";
 
 export default function LoginScreen({ navigation }) {
-  const {login} = useContext(AuthContext);
+  // const {login} = useContext(AuthContext);
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
@@ -45,7 +45,12 @@ export default function LoginScreen({ navigation }) {
         />
 
         {/* login button */}
-        <CustomButton label={"Login"} onPress={() => {login()}} />
+        <CustomButton
+          label={"Login"}
+          onPress={() => {
+            login();
+          }}
+        />
 
         {/* register link for new users */}
         <View
