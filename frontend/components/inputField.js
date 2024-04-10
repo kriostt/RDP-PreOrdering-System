@@ -9,6 +9,7 @@ export default function InputField({
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
+  onChangeText,
 }) {
   return (
     // container View for the input field
@@ -31,6 +32,7 @@ export default function InputField({
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 }}
           secureTextEntry={true}
+          onChangeText={onChangeText}
         />
       ) : (
         // if not, render a normal TextInput
@@ -38,6 +40,7 @@ export default function InputField({
           placeholder={label}
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0 }}
+          onChangeText={onChangeText}
         />
       )}
 
