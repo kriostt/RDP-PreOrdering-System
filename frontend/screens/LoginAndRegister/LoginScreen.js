@@ -30,7 +30,7 @@ function LoginPage() {
       password,
     };
 
-    axios.post("http://192.168.1.72:3001/login", userData).then((res) => {
+    axios.post("http://10.255.82.232:3001/login", userData).then((res) => {
       console.log(res.data);
       if (res.data.status == "ok") {
         Alert.alert("Logged In Successfully!");
@@ -90,14 +90,14 @@ function LoginPage() {
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 {password.length < 1 ? null : !showPassword ? (
                   <Feather
-                    name="eye-off"
+                    name="eye"
                     style={{ marginRight: -10, paddingBottom: 12 }}
                     color="#003366"
                     size={23}
                   />
                 ) : (
                   <Feather
-                    name="eye"
+                    name="eye-off"
                     style={{ marginRight: -10, paddingBottom: 12 }}
                     color="#003366"
                     size={23}

@@ -41,7 +41,7 @@ function RegisterPage() {
 
     if (usernameVerify && emailVerify && passwordVerify && phoneVerify) {
       axios
-        .post("http://192.168.1.72:3001/register", userData)
+        .post("http://10.255.82.232:3001/register", userData)
         .then((res) => {
           console.log(res.data);
           if (res.data.status == "ok") {
@@ -224,14 +224,14 @@ function RegisterPage() {
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 {password.length < 1 ? null : !showPassword ? (
                   <Feather
-                    name="eye-off"
+                    name="eye"
                     style={{ marginRight: -10, paddingBottom: 12 }}
                     color={passwordVerify ? "green" : "red"}
                     size={23}
                   />
                 ) : (
                   <Feather
-                    name="eye"
+                    name="eye-off"
                     style={{ marginRight: -10, paddingBottom: 12 }}
                     color={passwordVerify ? "green" : "red"}
                     size={23}
