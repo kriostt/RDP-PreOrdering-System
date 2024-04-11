@@ -5,7 +5,7 @@ const UserModelSchema = new mongoose.Schema(
     username: String,
     email: { type: String, unique: true },
     phone: String,
-    passwrod: String,
+    password: String,
   },
   {
     collection: "User",
