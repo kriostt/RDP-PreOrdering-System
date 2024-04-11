@@ -6,6 +6,7 @@ const {
   TouchableOpacity,
   ScrollView,
   Alert,
+  KeyboardAvoidingView,
 } = require("react-native");
 import { useNavigation } from "@react-navigation/native";
 import styles from "./style";
@@ -15,10 +16,9 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import Error from "react-native-vector-icons/MaterialIcons";
 import { useState } from "react";
 import axios from "axios";
-import Toast from "react-native-toast-message";
 import { RadioButton } from "react-native-paper";
 
-function RegisterPage({ props }) {
+function RegisterPage() {
   const [username, setUsername] = useState("");
   const [usernameVerify, setUsernameVerify] = useState(false);
   const [email, setEmail] = useState("");
@@ -104,202 +104,224 @@ function RegisterPage({ props }) {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps={"always"}
-      style={{ backgroundColor: "white" }}
-    >
-      <View>
-        {/* register screen image */}
-        <View style={styles.logoContainer}>
-          <Image
-            style={styles.logo}
-            source={require("../../assets/images/register.png")}
-          />
-        </View>
-
-        <View style={styles.loginContainer}>
-          {/* title */}
-          <Text style={styles.text_header}>Register</Text>
-
-          <View style={styles.radioButton_div}>
-            <Text style={styles.radioButton_title}> Login as</Text>
-            <View style={styles.radioButton_inner_div}>
-              <Text style={styles.radioButton_text}>User</Text>
-              <RadioButton
-                value="User"
-                status={userType == "User" ? "checked" : "unchecked"}
-                onPress={() => setUserType("User")}
-              />
-            </View>
-            <View style={styles.radioButton_inner_div}>
-              <Text style={styles.radioButton_text}>Admin</Text>
-              <RadioButton
-                value="Admin"
-                status={userType == "Admin" ? "checked" : "unchecked"}
-                onPress={() => setUserType("Admin")}
-              />
-            </View>
+    <KeyboardAvoidingView>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps={"always"}
+        style={{ backgroundColor: "white" }}
+      >
+        <View style={styles.mainContainer}>
+          {/* register screen image */}
+          <View style={styles.logoContainer}>
+            <Image
+              style={styles.logo}
+              source={require("../../assets/images/login.jpg")}
+            />
           </View>
 
-          {userType == "Admin" ? (
+          <View style={styles.loginContainer}>
+            {/* title */}
+            <Text style={styles.text_header}>Register</Text>
+
+            <View style={styles.radioButton_div}>
+              <Text style={styles.radioButton_title}> Login as</Text>
+              <View style={styles.radioButton_inner_div}>
+                <Text style={styles.radioButton_text}>User</Text>
+                <RadioButton
+                  value="User"
+                  status={userType == "User" ? "checked" : "unchecked"}
+                  onPress={() => setUserType("User")}
+                  color="#003366"
+                />
+              </View>
+              <View style={styles.radioButton_inner_div}>
+                <Text style={styles.radioButton_text}>Admin</Text>
+                <RadioButton
+                  value="Admin"
+                  status={userType == "Admin" ? "checked" : "unchecked"}
+                  onPress={() => setUserType("Admin")}
+                  color="#003366"
+                />
+              </View>
+            </View>
+
+            {userType == "Admin" ? (
+              <View style={styles.action}>
+                <FontAwesome
+                  name="key"
+                  color="#003366"
+                  style={styles.smallIcon}
+                />
+                <TextInput
+                  placeholder="Secret Text"
+                  style={styles.textInput}
+                  onChange={(e) => setSecretText(e.nativeEvent.text)}
+                />
+              </View>
+            ) : (
+              ""
+            )}
+
+            {/* username input */}
             <View style={styles.action}>
               <FontAwesome
                 name="user-o"
-                color="#420475"
+                color="#003366"
                 style={styles.smallIcon}
               />
               <TextInput
-                placeholder="Secret Text"
+                placeholder="Username"
                 style={styles.textInput}
-                onChange={(e) => setSecretText(e.nativeEvent.text)}
+                onChange={(e) => handleUsername(e)}
               />
-            </View>
-          ) : (
-            ""
-          )}
-
-          {/* username input */}
-          <View style={styles.action}>
-            <FontAwesome
-              name="user-o"
-              color="#420475"
-              style={styles.smallIcon}
-            />
-            <TextInput
-              placeholder="Username"
-              style={styles.textInput}
-              onChange={(e) => handleUsername(e)}
-            />
-            {username.length < 1 ? null : usernameVerify ? (
-              <Feather name="check-circle" color="green" size={20} />
-            ) : (
-              <Error name="error" color="red" size={20} />
-            )}
-          </View>
-          {username.length < 1 ? null : usernameVerify ? null : (
-            <Text
-              style={{
-                marginLeft: 20,
-                color: "red",
-              }}
-            >
-              Please enter a username with more than 1 character.
-            </Text>
-          )}
-
-          {/* email input  */}
-          <View style={styles.action}>
-            <Fontisto
-              name="email"
-              color="#420475"
-              size={24}
-              style={{ marginLeft: 0, paddingRight: 5 }}
-            />
-            <TextInput
-              placeholder="Email"
-              style={styles.textInput}
-              onChange={(e) => handleEmail(e)}
-            />
-            {email.length < 1 ? null : emailVerify ? (
-              <Feather name="check-circle" color="green" size={20} />
-            ) : (
-              <Error name="error" color="red" size={20} />
-            )}
-          </View>
-          {email.length < 1 ? null : emailVerify ? null : (
-            <Text
-              style={{
-                marginLeft: 20,
-                color: "red",
-              }}
-            >
-              Please enter a valid RDP email address.
-            </Text>
-          )}
-
-          {/* phone input */}
-          <View style={styles.action}>
-            <FontAwesome
-              name="phone"
-              color="#420475"
-              size={35}
-              style={{ paddingRight: 10, marginTop: -7, marginLeft: 5 }}
-            />
-            <TextInput
-              placeholder="Phone"
-              style={styles.textInput}
-              onChange={(e) => handlePhone(e)}
-              maxLength={10}
-            />
-            {phone.length < 1 ? null : phoneVerify ? (
-              <Feather name="check-circle" color="green" size={20} />
-            ) : (
-              <Error name="error" color="red" size={20} />
-            )}
-          </View>
-          {phone.length < 1 ? null : phoneVerify ? null : (
-            <Text
-              style={{
-                marginLeft: 20,
-                color: "red",
-              }}
-            >
-              Please enter a valid phone number.
-            </Text>
-          )}
-
-          {/* password input */}
-          <View style={styles.action}>
-            <FontAwesome name="lock" color="#420475" style={styles.smallIcon} />
-            <TextInput
-              placeholder="Password"
-              style={styles.textInput}
-              onChange={(e) => handlePassword(e)}
-              secureTextEntry={showPassword}
-            />
-            <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-              {password.length < 1 ? null : !showPassword ? (
-                <Feather
-                  name="eye-off"
-                  style={{ marginRight: -10 }}
-                  color={passwordVerify ? "green" : "red"}
-                  size={23}
-                />
+              {username.length < 1 ? null : usernameVerify ? (
+                <Feather name="check-circle" color="green" size={20} />
               ) : (
-                <Feather
-                  name="eye"
-                  style={{ marginRight: -10 }}
-                  color={passwordVerify ? "green" : "red"}
-                  size={23}
-                />
+                <Error name="error" color="red" size={20} />
               )}
-            </TouchableOpacity>
-          </View>
-          {password.length < 1 ? null : passwordVerify ? null : (
-            <Text
-              style={{
-                marginLeft: 20,
-                color: "red",
-              }}
-            >
-              Password must have an uppercase letter, a lowercase letter, a
-              number, and 6 or more characters.
-            </Text>
-          )}
-        </View>
-
-        {/* register button */}
-        <View style={styles.button}>
-          <TouchableOpacity style={styles.inBut} onPress={() => handleSubmit()}>
-            <View>
-              <Text style={styles.textSign}>Register</Text>
             </View>
-          </TouchableOpacity>
+            {username.length < 1 ? null : usernameVerify ? null : (
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "red",
+                }}
+              >
+                Please enter a username with more than 1 character.
+              </Text>
+            )}
+
+            {/* email input  */}
+            <View style={styles.action}>
+              <Fontisto
+                name="email"
+                color="#003366"
+                size={24}
+                style={{ marginLeft: 0, paddingRight: 5, paddingBottom: 12 }}
+              />
+              <TextInput
+                placeholder="Email"
+                style={styles.textInput}
+                onChange={(e) => handleEmail(e)}
+              />
+              {email.length < 1 ? null : emailVerify ? (
+                <Feather name="check-circle" color="green" size={20} />
+              ) : (
+                <Error name="error" color="red" size={20} />
+              )}
+            </View>
+            {email.length < 1 ? null : emailVerify ? null : (
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "red",
+                }}
+              >
+                Please enter a valid RDP email address.
+              </Text>
+            )}
+
+            {/* phone input */}
+            <View style={styles.action}>
+              <FontAwesome
+                name="phone"
+                color="#003366"
+                size={24}
+                style={{ paddingRight: 10 }}
+              />
+              <TextInput
+                placeholder="Phone"
+                style={styles.textInput}
+                onChange={(e) => handlePhone(e)}
+                maxLength={10}
+              />
+              {phone.length < 1 ? null : phoneVerify ? (
+                <Feather name="check-circle" color="green" size={20} />
+              ) : (
+                <Error name="error" color="red" size={20} />
+              )}
+            </View>
+            {phone.length < 1 ? null : phoneVerify ? null : (
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "red",
+                }}
+              >
+                Please enter a valid phone number.
+              </Text>
+            )}
+
+            {/* password input */}
+            <View style={styles.action}>
+              <FontAwesome
+                name="lock"
+                color="#003366"
+                style={styles.smallIcon}
+              />
+              <TextInput
+                placeholder="Password"
+                style={styles.textInput}
+                onChange={(e) => handlePassword(e)}
+                secureTextEntry={showPassword}
+              />
+              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+                {password.length < 1 ? null : !showPassword ? (
+                  <Feather
+                    name="eye-off"
+                    style={{ marginRight: -10 }}
+                    color={passwordVerify ? "green" : "red"}
+                    size={23}
+                  />
+                ) : (
+                  <Feather
+                    name="eye"
+                    style={{ marginRight: -10 }}
+                    color={passwordVerify ? "green" : "red"}
+                    size={23}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+            {password.length < 1 ? null : passwordVerify ? null : (
+              <Text
+                style={{
+                  marginLeft: 20,
+                  color: "red",
+                }}
+              >
+                Password must have an uppercase letter, a lowercase letter, a
+                number, and 6 or more characters.
+              </Text>
+            )}
+          </View>
+
+          {/* register button */}
+          <View style={styles.button}>
+            <TouchableOpacity
+              style={styles.inBut}
+              onPress={() => handleSubmit()}
+            >
+              <View>
+                <Text style={styles.textSign}>Register</Text>
+              </View>
+            </TouchableOpacity>
+
+            {/* link to navigate to login page */}
+            <View style={{ padding: 15 }}>
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+                <Text
+                  style={{ fontSize: 14, fontWeight: "bold", color: "#007bff" }}
+                >
+                  Have an existing account?
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 export default RegisterPage;

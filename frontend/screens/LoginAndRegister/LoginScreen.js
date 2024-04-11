@@ -11,12 +11,11 @@ import { useNavigation } from "@react-navigation/native";
 import styles from "./style";
 import Feather from "react-native-vector-icons/Feather";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { useEffect, useState } from "react";
-import { log } from "react-native-reanimated";
+import { useState } from "react";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-function LoginPage({ props }) {
+function LoginPage() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,9 +31,9 @@ function LoginPage({ props }) {
       console.log(res.data);
       if (res.data.status == "ok") {
         Alert.alert("Logged In Successfully!");
-        AsyncStorage.setItem("token", res.data.data);
-        AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
-        AsyncStorage.setItem("userType", res.data.userType);
+        // AsyncStorage.setItem("token", res.data.data);
+        // AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
+        // AsyncStorage.setItem("userType", res.data.userType);
         // navigation.navigate('Home');
         if (res.data.userType == "Admin") {
           navigation.navigate("AdminScreen");
@@ -44,22 +43,22 @@ function LoginPage({ props }) {
       }
     });
   }
-  async function getData() {
-    const data = await AsyncStorage.getItem("isLoggedIn");
+  // async function getData() {
+  //   const data = await AsyncStorage.getItem("isLoggedIn");
 
-    console.log(data, "at app.jsx");
-  }
-  useEffect(() => {
-    getData();
-    console.log("Hii");
-  }, []);
+  //   console.log(data, "at app.jsx");
+  // }
+  // useEffect(() => {
+  //   getData();
+  //   console.log("Hii");
+  // }, []);
 
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
       keyboardShouldPersistTaps={"always"}
     >
-      <View style={{ backgroundColor: "white" }}>
+      <View style={styles.mainContainer}>
         {/* login screen image */}
         <View style={styles.logoContainer}>
           <Image
@@ -76,7 +75,7 @@ function LoginPage({ props }) {
           <View style={styles.action}>
             <FontAwesome
               name="user-o"
-              color="#420475"
+              color="#003366"
               style={styles.smallIcon}
             />
             <TextInput
@@ -88,7 +87,7 @@ function LoginPage({ props }) {
 
           {/* password input */}
           <View style={styles.action}>
-            <FontAwesome name="lock" color="#420475" style={styles.smallIcon} />
+            <FontAwesome name="lock" color="#003366" style={styles.smallIcon} />
             <TextInput
               placeholder="Password"
               style={styles.textInput}
@@ -105,35 +104,15 @@ function LoginPage({ props }) {
             </View>
           </TouchableOpacity>
 
+          {/* link to navgigate to the register page */}
           <View style={{ padding: 15 }}>
-            <Text
-              style={{ fontSize: 14, fontWeight: "bold", color: "#919191" }}
-            >
-              ----Create account?----
-            </Text>
-          </View>
-          <View style={styles.bottomButton}>
-            {/* register button */}
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <TouchableOpacity
-                style={styles.inBut2}
-                onPress={() => {
-                  navigation.navigate("Register");
-                }}
+            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+              <Text
+                style={{ fontSize: 14, fontWeight: "bold", color: "#007bff" }}
               >
-                <FontAwesome
-                  name="user-plus"
-                  color="white"
-                  style={[styles.smallIcon2, { fontSize: 30 }]}
-                />
-              </TouchableOpacity>
-              <Text style={styles.bottomText}>Sign Up</Text>
-            </View>
+                Don't have an account?
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
