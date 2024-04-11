@@ -98,7 +98,7 @@ function LoginPage() {
                 ) : (
                   <Feather
                     name="eye"
-                    style={{ marginRight: -10 }}
+                    style={{ marginRight: -10, paddingBottom: 12 }}
                     color="#003366"
                     size={23}
                   />
