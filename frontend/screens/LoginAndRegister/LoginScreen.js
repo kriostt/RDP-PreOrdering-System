@@ -91,14 +91,22 @@ function LoginPage() {
                 {password.length < 1 ? null : !showPassword ? (
                   <Feather
                     name="eye"
-                    style={{ marginRight: -10, paddingBottom: 12 }}
+                    style={{
+                      marginRight: -10,
+                      paddingBottom: 12,
+                      paddingRight: 5,
+                    }}
                     color="#003366"
                     size={23}
                   />
                 ) : (
                   <Feather
                     name="eye-off"
-                    style={{ marginRight: -10, paddingBottom: 12 }}
+                    style={{
+                      marginRight: -10,
+                      paddingBottom: 12,
+                      paddingRight: 5,
+                    }}
                     color="#003366"
                     size={23}
                   />
