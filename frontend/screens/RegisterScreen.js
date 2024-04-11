@@ -30,7 +30,9 @@ export default function RegisterScreen({ navigation }) {
         {/* email input */}
         <InputField
           label={"Email"}
-          icon={<Icon.AtSign size={20} color="#666" style={{ marginRight: 5 }} />}
+          icon={
+            <Icon.AtSign size={20} color="#666" style={{ marginRight: 5 }} />
+          }
           keyboardType="email-address"
         />
 
