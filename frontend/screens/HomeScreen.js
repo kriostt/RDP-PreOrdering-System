@@ -57,10 +57,9 @@ export default function HomeScreen() {
     toggleProfileMenu();
   };
 
-  // navigate to the register screen
-  const navigateToRegister = () => {
-    navigation.navigate("Register");
-    toggleProfileMenu();
+  //logout
+  const logout = () => {
+    navigateToLogin();
   };
 
   return (
@@ -144,13 +143,9 @@ export default function HomeScreen() {
               </Text>
             </TouchableOpacity>
 
-            {/* menu items */}
-            <TouchableOpacity onPress={navigateToLogin}>
-              <Text style={{ marginBottom: 20, fontSize: 22 }}>Login</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={navigateToRegister}>
-              <Text style={{ marginBottom: 20, fontSize: 22 }}>Register</Text>
+            {/* logout button */}
+            <TouchableOpacity onPress={logout}>
+              <Text style={{ marginBottom: 20, fontSize: 22 }}>Logout</Text>
             </TouchableOpacity>
           </View>
         </View>
