@@ -20,7 +20,6 @@ function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
   function handleSubmit() {
     console.log(email, password);
     const userData = {
@@ -35,12 +34,7 @@ function LoginPage() {
         // AsyncStorage.setItem("token", res.data.data);
         // AsyncStorage.setItem("isLoggedIn", JSON.stringify(true));
         // AsyncStorage.setItem("userType", res.data.userType);
-        // navigation.navigate('Home');
-        if (res.data.userType == "Admin") {
-          navigation.navigate("Admin");
-        } else {
-          navigation.navigate("Home");
-        }
+        navigation.navigate("Home");
       }
     });
   }

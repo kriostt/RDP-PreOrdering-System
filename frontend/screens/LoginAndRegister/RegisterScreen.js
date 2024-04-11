@@ -43,9 +43,6 @@ function RegisterPage() {
     };
 
     if (usernameVerify && emailVerify && passwordVerify && phoneVerify) {
-      if (userType == "Admin" && secretText != "Text1243") {
-        return Alert.alert("Invalid Admin");
-      }
       axios
         .post("http://192.168.1.72:3001/register", userData)
         .then((res) => {
@@ -123,45 +120,6 @@ function RegisterPage() {
           <View style={styles.loginContainer}>
             {/* title */}
             <Text style={styles.text_header}>Register</Text>
-
-            <View style={styles.radioButton_div}>
-              <Text style={styles.radioButton_title}> Login as</Text>
-              <View style={styles.radioButton_inner_div}>
-                <Text style={styles.radioButton_text}>User</Text>
-                <RadioButton
-                  value="User"
-                  status={userType == "User" ? "checked" : "unchecked"}
-                  onPress={() => setUserType("User")}
-                  color="#003366"
-                />
-              </View>
-              <View style={styles.radioButton_inner_div}>
-                <Text style={styles.radioButton_text}>Admin</Text>
-                <RadioButton
-                  value="Admin"
-                  status={userType == "Admin" ? "checked" : "unchecked"}
-                  onPress={() => setUserType("Admin")}
-                  color="#003366"
-                />
-              </View>
-            </View>
-
-            {userType == "Admin" ? (
-              <View style={styles.action}>
-                <FontAwesome
-                  name="key"
-                  color="#003366"
-                  style={styles.smallIcon}
-                />
-                <TextInput
-                  placeholder="Secret Text"
-                  style={styles.textInput}
-                  onChange={(e) => setSecretText(e.nativeEvent.text)}
-                />
-              </View>
-            ) : (
-              ""
-            )}
 
             {/* username input */}
             <View style={styles.action}>

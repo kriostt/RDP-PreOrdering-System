@@ -9,7 +9,6 @@ import HomeScreen from "./screens/HomeScreen";
 import ItemScreen from "./screens/ItemScreen";
 import CartScreen from "./screens/CartScreen";
 import SuccessfulMessageScreen from "./screens/SuccessfulMessageScreen";
-import AdminScreen from "./screens/AdminScreen";
 
 // create a stack navigator
 const Stack = createNativeStackNavigator();
@@ -33,7 +32,6 @@ export default function Navigation() {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Admin" component={AdminScreen} />
       <Stack.Screen name="Item" component={ItemScreen} />
       <Stack.Screen
         name="Cart"
