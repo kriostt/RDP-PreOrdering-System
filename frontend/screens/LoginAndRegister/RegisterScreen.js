@@ -28,8 +28,6 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [userType, setUserType] = useState("");
-  const [secretText, setSecretText] = useState("");
 
   const navigation = useNavigation();
 
@@ -39,7 +37,6 @@ function RegisterPage() {
       email,
       phone,
       password,
-      userType,
     };
 
     if (usernameVerify && emailVerify && passwordVerify && phoneVerify) {
@@ -101,7 +98,7 @@ function RegisterPage() {
   }
 
   return (
-    <KeyboardAvoidingView>
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
@@ -228,7 +225,7 @@ function RegisterPage() {
                 {password.length < 1 ? null : !showPassword ? (
                   <Feather
                     name="eye-off"
-                    style={{ marginRight: -10 }}
+                    style={{ marginRight: -10, paddingBottom: 12 }}
                     color={passwordVerify ? "green" : "red"}
                     size={23}
                   />
