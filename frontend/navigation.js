@@ -9,7 +9,6 @@ import HomeScreen from "./screens/HomeScreen";
 import ItemScreen from "./screens/ItemScreen";
 import CartScreen from "./screens/CartScreen";
 import SuccessfulMessageScreen from "./screens/SuccessfulMessageScreen";
-import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 
 // create a stack navigator
 const Stack = createNativeStackNavigator();
@@ -39,7 +38,6 @@ export default function Navigation() {
           options={{ presentation: "fullScreenModal" }}
           component={SuccessfulMessageScreen}
         />
-        <Stack.Screen name="OrderHistory" component={OrderHistoryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

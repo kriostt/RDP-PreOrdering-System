@@ -61,11 +61,6 @@ export default function HomeScreen() {
     navigation.navigate("Register");
   };
 
-  // navigate to the order history screen
-  const navigateToOrderHistory = () => {
-    navigation.navigate("OrderHistory");
-  };
-
   return (
     // SafeAreaView to handle notches and screen insets
     <SafeAreaView className="bg-white">
@@ -131,7 +126,7 @@ export default function HomeScreen() {
 
           {/* profile menu */}
           <View
-            style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+            style={{ backgroundColor: "white", padding: 30, borderRadius: 10 }}
           >
             {/* close button */}
             <TouchableOpacity onPress={toggleProfileMenu}>
@@ -149,15 +144,21 @@ export default function HomeScreen() {
 
             {/* menu items */}
             <TouchableOpacity onPress={navigateToLogin}>
-              <Text style={{ marginBottom: 20, fontSize: 22 }}>Login</Text>
+              <Text
+                className="text-gray-700 font-bold"
+                style={{ marginBottom: 20, fontSize: 22 }}
+              >
+                Login
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={navigateToRegister}>
-              <Text style={{ marginBottom: 20, fontSize: 22 }}>Register</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={navigateToOrderHistory}>
-              <Text style={{ fontSize: 22 }}>Order History</Text>
+              <Text
+                className="text-gray-700 font-bold"
+                style={{ marginBottom: 30, fontSize: 22 }}
+              >
+                Register
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
