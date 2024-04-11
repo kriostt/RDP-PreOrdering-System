@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import * as Icon from "react-native-feather";
 import { useDispatch, useSelector } from "react-redux";
-import { themeColors } from "../theme"; 
+import { themeColors } from "../theme";
 import { urlFor } from "../sanity";
 import {
   addToCart,
@@ -22,7 +22,9 @@ export default function DishRow({ item }) {
 
   // function to handle increase in quantity of the dish
   const handleIncrease = () => {
-    dispatch(addToCart({ ...item }));
+    if (totalItems.length < 20) {
+      dispatch(addToCart({ ...item }));
+    }
   };
 
   // function to handle decrease in quantity of the dish
@@ -33,7 +35,6 @@ export default function DishRow({ item }) {
   return (
     // container for each dish row when clicking on category
     <View className="flex-row items-center bg-white p-3 rounded-3xl shadow-2xl mb-3 mx-2">
-      
       {/* image component for dish image */}
       <Image
         className="rounded-3xl"
@@ -53,7 +54,6 @@ export default function DishRow({ item }) {
 
         {/* View for price and quantity controls */}
         <View className="flex-row justify-between pl-3 items-center">
-
           <Text className="text-gray-700 text-lg font-bold">
             {" "}
             $ {item.price}

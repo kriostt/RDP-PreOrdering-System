@@ -127,7 +127,7 @@ export default function HomeScreen() {
 
           {/* profile menu */}
           <View
-            style={{ backgroundColor: "white", padding: 20, borderRadius: 10 }}
+            style={{ backgroundColor: "white", padding: 30, borderRadius: 10 }}
           >
             {/* close button */}
             <TouchableOpacity onPress={toggleProfileMenu}>

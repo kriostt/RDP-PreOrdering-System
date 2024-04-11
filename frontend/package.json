@@ -18,7 +18,7 @@
     "@types/react": "~18.2.45",
     "antd": "^5.16.1",
     "axios": "^1.6.8",
-    "expo": "~50.0.14",
+    "expo": "~50.0.15",
     "expo-secure-store": "^12.8.1",
     "expo-status-bar": "~1.11.1",
     "nativewind": "^2.0.11",
