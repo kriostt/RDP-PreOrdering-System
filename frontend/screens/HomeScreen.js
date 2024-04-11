@@ -54,16 +54,13 @@ export default function HomeScreen() {
   // navigate to the login screen
   const navigateToLogin = () => {
     navigation.navigate("Login");
+    toggleProfileMenu();
   };
 
   // navigate to the register screen
   const navigateToRegister = () => {
     navigation.navigate("Register");
-  };
-
-  // navigate to the order history screen
-  const navigateToOrderHistory = () => {
-    navigation.navigate("OrderHistory");
+    toggleProfileMenu();
   };
 
   return (
@@ -154,10 +151,6 @@ export default function HomeScreen() {
 
             <TouchableOpacity onPress={navigateToRegister}>
               <Text style={{ marginBottom: 20, fontSize: 22 }}>Register</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={navigateToOrderHistory}>
-              <Text style={{ fontSize: 22 }}>Order History</Text>
             </TouchableOpacity>
           </View>
         </View>
